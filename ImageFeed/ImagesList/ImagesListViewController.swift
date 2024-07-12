@@ -65,8 +65,27 @@ extension ImagesListViewController : UITableViewDataSource {
 
 // MARK: - UITableViewDataSource
 extension ImagesListViewController : UITableViewDelegate {
+
+    static let showSingleImageSegueIdentifier = "ShowSingleImage"
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
+        performSegue(withIdentifier: ImagesListViewController.showSingleImageSegueIdentifier, sender: indexPath)
+      }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ImagesListViewController.showSingleImageSegueIdentifier {
+               guard
+                   let viewController = segue.destination as? SingleImageViewController,
+                   let indexPath = sender as? IndexPath
+               else {
+                   assertionFailure("Invalid segue destination")
+                   return
+               }
+
+               let image = UIImage(named: photosName[indexPath.row])
+               viewController.image = image
+           } else {
+               super.prepare(for: segue, sender: sender)
+           }
+       }
 }
