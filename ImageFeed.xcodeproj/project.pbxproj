@@ -69,10 +69,10 @@
 				E73F0DC12C412AAA0085F3FE /* Profile */,
 				E74633592C40139F0073B16F /* ImagesList */,
 				E74633352C3F00840073B16F /* Helpers */,
-				E739F3292C3EF923006184CD /* Resources */,
 				E74633582C400C5A0073B16F /* Presenter */,
-				E739F3172C3EEBE7006184CD /* SceneDelegate.swift */,
+				E739F3292C3EF923006184CD /* Resources */,
 				E739F3152C3EEBE7006184CD /* AppDelegate.swift */,
+				E739F3172C3EEBE7006184CD /* SceneDelegate.swift */,
 				E739F31B2C3EEBE7006184CD /* Main.storyboard */,
 			);
 			path = ImageFeed;

@@ -16,92 +16,10 @@
                     <view key="view" contentMode="scaleToFill" id="QFo-RB-cUU">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cil-Sk-AvG" userLabel="VerticalStackView">
-                                <rect key="frame" x="16" y="59" width="398" height="175"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Jpc-oY-v5Y" userLabel="HorizontalStackView">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="175"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="rm3-je-jaK" userLabel="profileImage">
-                                                <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="70" id="BaV-fq-cHa"/>
-                                                    <constraint firstAttribute="width" constant="70" id="So9-bM-JWy"/>
-                                                    <constraint firstAttribute="width" secondItem="rm3-je-jaK" secondAttribute="height" multiplier="1:1" id="n8I-j6-Dfy"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="22"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-3P-SBm" userLabel="exitButton">
-                                                <rect key="frame" x="354" y="0.0" width="44" height="175"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="44" id="RM1-qR-hFL"/>
-                                                    <constraint firstAttribute="height" constant="44" id="tXg-5v-dNr"/>
-                                                </constraints>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="Exit"/>
-                                                <connections>
-                                                    <action selector="exitButtonClicked:" destination="XH3-ga-LcN" eventType="touchUpInside" id="ihz-nO-0mc"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Jpc-oY-v5Y" firstAttribute="leading" secondItem="Cil-Sk-AvG" secondAttribute="leading" id="cEr-oY-v0a"/>
-                                    <constraint firstAttribute="trailing" secondItem="Jpc-oY-v5Y" secondAttribute="trailing" id="lob-Gr-jp1"/>
-                                    <constraint firstItem="Jpc-oY-v5Y" firstAttribute="top" secondItem="Cil-Sk-AvG" secondAttribute="top" id="zAj-b1-ldp"/>
-                                </constraints>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="QLL-dA-Xkq" userLabel="AccountInfoStackView">
-                                <rect key="frame" x="20" y="137" width="398" height="87.666666666666657"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gti-iN-HLB" userLabel="nameLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="26.666666666666668"/>
-                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="23"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3P-AS-QsT" userLabel="accountLabel">
-                                        <rect key="frame" x="0.0" y="41.666666666666657" width="398" height="15.333333333333336"/>
-                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="13"/>
-                                        <color key="textColor" name="YP Grey"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fj6-2w-26U" userLabel="descriptionLabel">
-                                        <rect key="frame" x="0.0" y="72" width="398" height="15.666666666666671"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="gAy-Lr-SyW"/>
                         <color key="backgroundColor" name="YP Black"/>
-                        <constraints>
-                            <constraint firstItem="QLL-dA-Xkq" firstAttribute="leading" secondItem="Cil-Sk-AvG" secondAttribute="leading" id="C3s-yq-HFz"/>
-                            <constraint firstItem="QLL-dA-Xkq" firstAttribute="trailing" secondItem="Cil-Sk-AvG" secondAttribute="trailing" id="IVd-Vq-4SW"/>
-                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Cil-Sk-AvG" secondAttribute="bottom" constant="698" id="LdV-Ef-mHe"/>
-                            <constraint firstAttribute="trailing" secondItem="Cil-Sk-AvG" secondAttribute="trailing" constant="16" id="P5L-h5-dby"/>
-                            <constraint firstItem="QLL-dA-Xkq" firstAttribute="top" secondItem="Cil-Sk-AvG" secondAttribute="bottom" id="b0P-3K-6zU"/>
-                            <constraint firstItem="Cil-Sk-AvG" firstAttribute="leading" secondItem="QFo-RB-cUU" secondAttribute="leading" constant="16" id="kxM-61-YDf"/>
-                            <constraint firstItem="Cil-Sk-AvG" firstAttribute="top" secondItem="gAy-Lr-SyW" secondAttribute="top" id="sLs-gj-BKt"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="0S4-Aa-MQ6"/>
-                    <connections>
-                        <outlet property="accountLabel" destination="e3P-AS-QsT" id="IeR-af-VR0"/>
-                        <outlet property="descriptionLabel" destination="Fj6-2w-26U" id="hvM-kc-4Vt"/>
-                        <outlet property="exitButton" destination="dGi-3P-SBm" id="6JS-rL-g3I"/>
-                        <outlet property="nameLabel" destination="gti-iN-HLB" id="fMD-oL-Iea"/>
-                        <outlet property="profileImage" destination="rm3-je-jaK" id="dkj-Vf-xpK"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GB9-gU-jTP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -293,16 +211,11 @@
         <image name="0" width="1600" height="1059"/>
         <image name="Active Like" width="42" height="42"/>
         <image name="Backward" width="24" height="24"/>
-        <image name="Exit" width="24" height="24"/>
-        <image name="ProfileImage" width="70" height="70"/>
         <image name="Sharing" width="51" height="51"/>
         <image name="tab_feed_active" width="31" height="30"/>
         <image name="tab_profile_active" width="31" height="30"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="YP Grey">
-            <color red="0.68199998140335083" green="0.68599998950958252" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
