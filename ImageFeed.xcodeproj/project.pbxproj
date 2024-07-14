@@ -16,6 +16,10 @@
 		E739F32C2C3EFE0F006184CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E739F3202C3EEBE8006184CD /* LaunchScreen.storyboard */; };
 		E73F0DC32C412AB60085F3FE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F0DC22C412AB60085F3FE /* ProfileViewController.swift */; };
 		E73F0DC62C4149310085F3FE /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F0DC52C4149310085F3FE /* SingleImageViewController.swift */; };
+		E73F0DC82C42E9670085F3FE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F0DC72C42E9670085F3FE /* Constants.swift */; };
+		E73F0DCB2C441D240085F3FE /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F0DCA2C441D240085F3FE /* AuthViewController.swift */; };
+		E73F0DCD2C442ED30085F3FE /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F0DCC2C442ED30085F3FE /* WebViewViewController.swift */; };
+		E73F0DD02C443C140085F3FE /* WebViewViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F0DCF2C443C140085F3FE /* WebViewViewControllerDelegate.swift */; };
 		E74633372C3F00970073B16F /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74633362C3F00970073B16F /* UIColor+Extensions.swift */; };
 		E746335B2C4013B30073B16F /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E746335A2C4013B30073B16F /* ImagesListCell.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +35,10 @@
 		E739F3232C3EEBE8006184CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E73F0DC22C412AB60085F3FE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E73F0DC52C4149310085F3FE /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		E73F0DC72C42E9670085F3FE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E73F0DCA2C441D240085F3FE /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		E73F0DCC2C442ED30085F3FE /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		E73F0DCF2C443C140085F3FE /* WebViewViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerDelegate.swift; sourceTree = "<group>"; };
 		E74633362C3F00970073B16F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		E746335A2C4013B30073B16F /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +73,7 @@
 		E739F3142C3EEBE7006184CD /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				E73F0DC92C441D1A0085F3FE /* Auth */,
 				E73F0DC42C4149270085F3FE /* Image */,
 				E73F0DC12C412AAA0085F3FE /* Profile */,
 				E74633592C40139F0073B16F /* ImagesList */,
@@ -112,10 +121,29 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		E73F0DC92C441D1A0085F3FE /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E73F0DCE2C443C060085F3FE /* Delegate */,
+				E73F0DCA2C441D240085F3FE /* AuthViewController.swift */,
+				E73F0DCC2C442ED30085F3FE /* WebViewViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E73F0DCE2C443C060085F3FE /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				E73F0DCF2C443C140085F3FE /* WebViewViewControllerDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		E74633352C3F00840073B16F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				E74633362C3F00970073B16F /* UIColor+Extensions.swift */,
+				E73F0DC72C42E9670085F3FE /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -208,13 +236,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E73F0DCD2C442ED30085F3FE /* WebViewViewController.swift in Sources */,
 				E73F0DC32C412AB60085F3FE /* ProfileViewController.swift in Sources */,
 				E739F31A2C3EEBE7006184CD /* ImagesListViewController.swift in Sources */,
 				E739F3162C3EEBE7006184CD /* AppDelegate.swift in Sources */,
 				E73F0DC62C4149310085F3FE /* SingleImageViewController.swift in Sources */,
 				E746335B2C4013B30073B16F /* ImagesListCell.swift in Sources */,
 				E739F3182C3EEBE7006184CD /* SceneDelegate.swift in Sources */,
+				E73F0DD02C443C140085F3FE /* WebViewViewControllerDelegate.swift in Sources */,
 				E74633372C3F00970073B16F /* UIColor+Extensions.swift in Sources */,
+				E73F0DCB2C441D240085F3FE /* AuthViewController.swift in Sources */,
+				E73F0DC82C42E9670085F3FE /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
