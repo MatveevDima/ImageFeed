@@ -9,13 +9,17 @@ import UIKit
 
 class OAuth2Service {
     
+    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    
     func fetchOAuthToken(code: String, complition: @escaping (Result<String, Error>) -> (Void)) {
             self.fetch(code: code) { result in
                 switch result {
                 case .success(let data):
                     do {
                         let oAuthTokenResponseBody = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                        complition(.success(oAuthTokenResponseBody.accessToken))
+                        let token = oAuthTokenResponseBody.accessToken
+                        self.oAuth2TokenStorage.token = token
+                        complition(.success(token))
                     } catch {
                         complition(.failure(error))
                     }

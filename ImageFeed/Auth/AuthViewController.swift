@@ -11,8 +11,9 @@ class AuthViewController : UIViewController {
     
     @IBOutlet weak var signInButton: UIButton!
     
+    weak var authViewControllerDelegate: AuthViewControllerDelegate?
     private let showWebViewSegueIdentifier = "ShowWebView"
-    private let oAuth2Service : OAuth2Service = OAuth2Service()
+
     private let oAuth2TokenStorage : OAuth2TokenStorage = OAuth2TokenStorage()
     
     override func viewDidLoad() {
@@ -35,16 +36,9 @@ class AuthViewController : UIViewController {
 extension AuthViewController : WebViewViewControllerDelegate {
     
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        oAuth2Service.fetchOAuthToken(code: code) { [weak self] result in
-            switch result {
-            case .success(let token):
-                DispatchQueue.main.async {
-                    self?.oAuth2TokenStorage.token = token
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        
+        dismiss(animated: true)
+        authViewControllerDelegate?.didAuthenticate(self, code: code)
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
