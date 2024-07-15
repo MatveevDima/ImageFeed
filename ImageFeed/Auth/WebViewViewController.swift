@@ -85,8 +85,9 @@ extension WebViewViewController : WKNavigationDelegate {
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
-         if let code = code(from: navigationAction) {
+         if let codeItem = code(from: navigationAction) {
                 decisionHandler(.cancel)
+                delegate?.webViewViewController(self, didAuthenticateWithCode: codeItem)
           } else {
                 decisionHandler(.allow)
             }
