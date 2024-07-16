@@ -11,22 +11,38 @@ class OAuth2Service {
     
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     
-    func fetchOAuthToken(code: String, complition: @escaping (Result<String, Error>) -> (Void)) {
-            self.fetch(code: code) { result in
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
+    func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> (Void)) {
+        assert(Thread.isMainThread)
+        guard lastCode != code else {
+                    completion(.failure(AuthServiceError.invalidRequest))
+                    return
+                }
+        task?.cancel()
+        lastCode = code
+        
+        self.fetch(code: code) { [weak self] result in
+            DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
                     do {
                         let oAuthTokenResponseBody = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
                         let token = oAuthTokenResponseBody.accessToken
-                        self.oAuth2TokenStorage.token = token
-                        complition(.success(token))
+                        self?.oAuth2TokenStorage.token = token
+                        completion(.success(token))
                     } catch {
-                        complition(.failure(error))
+                        completion(.failure(error))
                     }
                 case .failure(let error):
-                    complition(.failure(error))
+                    completion(.failure(error))
                 }
+                
+                self?.task = nil
+                self?.lastCode = nil
             }
+        }
     }
     
     private func fetch(code: String, handler: @escaping (Result<Data, Error>) -> Void) {
@@ -34,6 +50,7 @@ class OAuth2Service {
         let request = makeOAuthTokenRequest(code: code)
         let urlSession = URLSession.shared
         let task = urlSession.data(for: request, completion: handler)
+        self.task = task
         task.resume()
     }
     
@@ -52,4 +69,8 @@ class OAuth2Service {
          request.httpMethod = "POST"
          return request
      }
+    
+    enum AuthServiceError: Error {
+        case invalidRequest
+    }
 }

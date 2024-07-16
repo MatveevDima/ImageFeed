@@ -340,18 +340,12 @@
                                     <constraint firstAttribute="width" constant="75" id="wBq-ed-Hka"/>
                                 </constraints>
                             </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="OMu-3x-r6U">
-                                <rect key="frame" x="196.66666666666666" y="513" width="37" height="185"/>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="44k-C2-tB6"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="OMu-3x-r6U" firstAttribute="centerX" secondItem="nDo-ln-0CN" secondAttribute="centerX" id="8d3-hG-s3t"/>
                             <constraint firstItem="dhc-ln-gFO" firstAttribute="centerY" secondItem="nDo-ln-0CN" secondAttribute="centerY" id="N0P-xL-fNN"/>
                             <constraint firstItem="dhc-ln-gFO" firstAttribute="centerX" secondItem="nDo-ln-0CN" secondAttribute="centerX" id="Wqt-L1-UYe"/>
-                            <constraint firstItem="44k-C2-tB6" firstAttribute="bottom" secondItem="OMu-3x-r6U" secondAttribute="bottom" constant="200" id="d6l-e4-gzj"/>
-                            <constraint firstItem="OMu-3x-r6U" firstAttribute="top" relation="lessThanOrEqual" secondItem="dhc-ln-gFO" secondAttribute="bottom" constant="8" symbolic="YES" id="uit-7g-nv3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -360,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ard-5f-kGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4887" y="-1515"/>
+            <point key="canvasLocation" x="-4887.9069767441861" y="-1515.4506437768241"/>
         </scene>
     </scenes>
     <resources>

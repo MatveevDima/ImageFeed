@@ -13,7 +13,7 @@ class OAuth2TokenStorage {
     private let bearerTokenKey = "bearerToken"
     
     init() {
-       // userDefaults.removeObject(forKey: bearerTokenKey)
+        //userDefaults.removeObject(forKey: bearerTokenKey)
     }
     
     var token: String? {

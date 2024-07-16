@@ -15,10 +15,33 @@ class ProfileViewController: UIViewController {
     var accountLabel: UILabel!
     var descriptionLabel: UILabel!
     
+    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let profileService = ProfileService()
+    
+    private var profileImageUrls: ProfileImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        
+        guard let token = oAuth2TokenStorage.token else { return }
+        
+        profileService.fetchProfile(token) { [weak self] result in
+            
+            switch result {
+            case .success(let profile):
+                DispatchQueue.main.async {
+                    self?.nameLabel.text = profile.name
+                    self?.accountLabel.text = profile.loginName
+                    self?.descriptionLabel.text = profile.bio
+                    self?.profileImageUrls = profile.profileImage
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+      
     }
     
     // MARK: - Actions
