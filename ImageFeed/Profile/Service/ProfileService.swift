@@ -9,7 +9,15 @@ import UIKit
 
 final class ProfileService {
     
+    static let shared = ProfileService()
+    
     private var task: URLSessionTask?
+    
+    private(set) var profile: Profile?
+    
+    private init() {
+        
+    }
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         
@@ -28,6 +36,7 @@ final class ProfileService {
                         let profileResultBody = try JSONDecoder().decode(ProfileResult.self, from: data)
                         
                         let profile = Profile(profileResult: profileResultBody)
+                        self?.updateProfileDetails(profile)
                         completion(.success(profile))
                     } catch {
                         completion(.failure(error))
@@ -43,6 +52,10 @@ final class ProfileService {
         self.task = task
         task.resume()
         
+    }
+    
+    private func updateProfileDetails(_ profile: Profile) {
+        self.profile = profile
     }
     
     private func makeProfileRequest(token: String) -> URLRequest {
