@@ -59,9 +59,7 @@ class ProfileViewController: UIViewController {
                                     ]
             )
             let cache = ImageCache.default
-            // Очищает кэш в оперативной памяти
             cache.clearMemoryCache()
-            // Очищает дисковый кэш
             cache.clearDiskCache()
         }
     }
