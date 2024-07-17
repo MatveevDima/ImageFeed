@@ -12,12 +12,14 @@ class AuthViewController : UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     
     weak var authViewControllerDelegate: AuthViewControllerDelegate?
+    private var alertPresenter: AlertPresenterProtocol?
     private let showWebViewSegueIdentifier = "ShowWebView"
 
     private let oAuth2TokenStorage : OAuth2TokenStorage = OAuth2TokenStorage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertPresenter = AlertPresenter(delegate: self)
         configureBackButton()
     }
     
@@ -43,6 +45,7 @@ extension AuthViewController : WebViewViewControllerDelegate {
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
+        showResults()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -54,5 +57,13 @@ extension AuthViewController : WebViewViewControllerDelegate {
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+}
+
+extension AuthViewController : AlertPresenterDelegate {
+    
+    func showResults() {
+        
+        alertPresenter?.sendAlertNetworkError(on: self)
     }
 }

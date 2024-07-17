@@ -10,23 +10,25 @@ import ProgressHUD
 
 final class SplashViewController : UIViewController {
     
+    private var alertPresenter: AlertPresenterProtocol?
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     private let oauth2Service = OAuth2Service()
     private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertPresenter = AlertPresenter(delegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-           if let token = oAuth2TokenStorage.token {
-               fetchProfile(token)
-               switchToTabBarController()
-           } else {
-               performSegue(withIdentifier: SplashViewController.authenticationScreenSegueIdentifier, sender: nil)
-           }
+        
+        if let token = oAuth2TokenStorage.token {
+            fetchProfile(token)
+        } else {
+            performSegue(withIdentifier: SplashViewController.authenticationScreenSegueIdentifier, sender: nil)
+        }
     }
 }
 
@@ -47,7 +49,7 @@ extension SplashViewController {
             
         } else {
             super.prepare(for: segue, sender: sender)
-           }
+        }
     }
 }
 
@@ -57,7 +59,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         UIBlockingProgressHUD.show()
         vc.dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-        
+            
             self.fetchOAuthToken(code)
         }
     }
@@ -71,7 +73,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
-           
+        
         window.rootViewController = tabBarController
     }
     
@@ -83,26 +85,49 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfile(token)
             case .failure(let error):
                 print(error.localizedDescription)
+                self.showResults()
                 break
             }
         }
     }
     
     private func fetchProfile(_ token: String) {
-            UIBlockingProgressHUD.show()
-            profileService.fetchProfile(token) { [weak self] result in
+        profileService.fetchProfile(token) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success:
+                self.fetchProfileImageURL(token)
                 UIBlockingProgressHUD.dismiss()
-
-                guard let self = self else { return }
-
-                switch result {
-                case .success:
-                    UIBlockingProgressHUD.dismiss()
-                    self.switchToTabBarController()
-                case .failure:
-                    // TODO [Sprint 11] Покажите ошибку получения профиля
-                    break
-                }
+                self.switchToTabBarController()
+            case .failure:
+                self.showResults()
+                break
             }
         }
+    }
+    
+    private func fetchProfileImageURL(_ token: String) {
+        profileImageService.fetchProfileImageURL(
+            username: profileService.profile?.username ?? " ",
+            token: token) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let url):
+                    print(url)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.showResults()
+                }
+            }
+    }
+}
+
+extension SplashViewController : AlertPresenterDelegate {
+    
+    func showResults() {
+        
+        alertPresenter?.sendAlertNetworkError(on: self)
+    }
 }

@@ -26,7 +26,7 @@ extension URLSession {
         
         let task = dataTask(with: request, completionHandler: { data, response, error in
             if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                print(String(data: data, encoding: .utf8)) 
+                print(String(data: data, encoding: .utf8))
                 if 200 ..< 300 ~= statusCode {
                     fulfillCompletionOnTheMainThread(.success(data))
                 } else {
@@ -41,4 +41,31 @@ extension URLSession {
         
         return task
     }
+    
+    func objectTask<T: Decodable>(
+        for request: URLRequest,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) -> URLSessionTask {
+        
+        let decoder = JSONDecoder()
+        let task = data(for: request) { (result: Result<Data, Error>) in
+            
+            switch result {
+            case .success(let data):
+                do {
+                    let requestBody = try JSONDecoder().decode(T.self, from: data)
+                    completion(.success(requestBody))
+                } catch {
+                    print("Ошибка декодирования: \(error.localizedDescription), Данные: \(String(data: data, encoding: .utf8) ?? "")")
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
+            }
+        }
+        
+        return task
+    }
+    
 }

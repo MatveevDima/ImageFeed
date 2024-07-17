@@ -16,29 +16,23 @@ final class WebViewViewController : UIViewController {
     
     weak var delegate: WebViewViewControllerDelegate?
     
+    private var estimatedProgressObservation: NSKeyValueObservation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.navigationDelegate = self
+        
+        estimatedProgressObservation = webView.observe(
+                   \.estimatedProgress,
+                   options: [],
+                   changeHandler: { [weak self] _, _ in
+                       guard let self = self else { return }
+                       self.updateProgress()
+                   })
+        
         loadAuthView()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // NOTE: Since the class is marked as `final` we don't need to pass a context.
-        // In case of inhertiance context must not be nil.
-        webView.addObserver(
-            self,
-            forKeyPath: #keyPath(WKWebView.estimatedProgress),
-            options: .new,
-            context: nil)
-        updateProgress()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
-    }
-    
+
     private func loadAuthView() {
         guard var urlComponents = URLComponents(string: Constants.authorizeURLString) else {
             return
@@ -58,19 +52,6 @@ final class WebViewViewController : UIViewController {
         let request = URLRequest(url: url)
         webView.load(request)
         }
-    
-    override func observeValue(
-        forKeyPath keyPath: String?,
-        of object: Any?,
-        change: [NSKeyValueChangeKey : Any]?,
-        context: UnsafeMutableRawPointer?
-    ) {
-        if keyPath == #keyPath(WKWebView.estimatedProgress) {
-            updateProgress()
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
 
     private func updateProgress() {
         progressBar.progress = Float(webView.estimatedProgress)

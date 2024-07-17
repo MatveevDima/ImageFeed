@@ -28,19 +28,13 @@ final class ProfileService {
         
         let urlSession = URLSession.shared
         
-        let task = urlSession.data(for: request) { [weak self] result in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let data):
-                    do {
-                        let profileResultBody = try JSONDecoder().decode(ProfileResult.self, from: data)
-                        
+                case .success(let profileResultBody):
                         let profile = Profile(profileResult: profileResultBody)
                         self?.updateProfileDetails(profile)
                         completion(.success(profile))
-                    } catch {
-                        completion(.failure(error))
-                    }
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -69,8 +63,4 @@ final class ProfileService {
          request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
          return request
      }
-    
-    enum AuthServiceError: Error {
-        case invalidRequest
-    }
 }
