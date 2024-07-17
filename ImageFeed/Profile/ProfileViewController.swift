@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
@@ -32,24 +33,38 @@ class ProfileViewController: UIViewController {
         descriptionLabel.text = profile.bio
         
         profileImageServiceObserver = NotificationCenter.default
-                   .addObserver(
-                       forName: ProfileImageService.didChangeNotification,
-                       object: nil,
-                       queue: .main
-                   ) { [weak self] _ in
-                       guard let self = self else { return }
-                       self.updateAvatar()
-                   }
-               updateAvatar()
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
     
     private func updateAvatar() {
-           guard
-               let profileImageURL = ProfileImageService.shared.avatarURL,
-               let url = URL(string: profileImageURL)
-           else { return }
-           // TODO [Sprint 11] Обновитt аватар, используя Kingfisher
-       }
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        
+        DispatchQueue.main.async {
+            let processor = RoundCornerImageProcessor(cornerRadius: 50)
+            self.profileImage.kf.indicatorType = .activity
+            self.profileImage.kf.setImage(with: url,
+                                     options: [
+                                        .processor(processor)
+                                    ]
+            )
+            let cache = ImageCache.default
+            // Очищает кэш в оперативной памяти
+            cache.clearMemoryCache()
+            // Очищает дисковый кэш
+            cache.clearDiskCache()
+        }
+    }
     
     
     // MARK: - Actions
@@ -74,9 +89,10 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupProfileImageView() {
-        profileImage = UIImageView(image: UIImage(named: "ProfileImage")!)
+        profileImage = UIImageView(image: UIImage(named: "placeholder")!)
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         profileImage.tintColor = .none
+        profileImage.layer.cornerRadius = 50
         
         view.addSubview(profileImage)
         

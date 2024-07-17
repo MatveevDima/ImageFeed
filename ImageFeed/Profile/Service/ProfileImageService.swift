@@ -30,7 +30,7 @@ final class ProfileImageService {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let profileImageBody):
-                        guard let profileImageSmall = profileImageBody.profileImage?.small else { return }
+                        guard let profileImageSmall = profileImageBody.profileImage?.large else { return }
                         self?.avatarURL = profileImageSmall
                         completion(.success(profileImageSmall))
                         NotificationCenter.default
