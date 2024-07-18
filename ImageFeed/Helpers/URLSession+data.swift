@@ -53,7 +53,7 @@ extension URLSession {
             switch result {
             case .success(let data):
                 do {
-                    let requestBody = try JSONDecoder().decode(T.self, from: data)
+                    let requestBody = try decoder.decode(T.self, from: data)
                     completion(.success(requestBody))
                 } catch {
                     print("Ошибка декодирования: \(error.localizedDescription), Данные: \(String(data: data, encoding: .utf8) ?? "")")

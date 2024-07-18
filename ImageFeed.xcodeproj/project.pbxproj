@@ -41,6 +41,7 @@
 		E779811E2C47F7C900E06F13 /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779811D2C47F7C900E06F13 /* AlertPresenterProtocol.swift */; };
 		E77981212C4801A400E06F13 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E77981202C4801A400E06F13 /* Kingfisher */; };
 		E77981242C48401A00E06F13 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = E77981232C48401A00E06F13 /* SwiftKeychainWrapper */; };
+		E77981292C4905B600E06F13 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981282C4905B600E06F13 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		E77981172C47F73900E06F13 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		E779811A2C47F78500E06F13 /* AlertPresenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterDelegate.swift; sourceTree = "<group>"; };
 		E779811D2C47F7C900E06F13 /* AlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocol.swift; sourceTree = "<group>"; };
+		E77981282C4905B600E06F13 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		E739F3142C3EEBE7006184CD /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				E77981272C4905AA00E06F13 /* TabBar */,
 				E73F0DE32C46A0F40085F3FE /* ProgressHUB */,
 				E73F0DDB2C453A480085F3FE /* Splash */,
 				E73F0DC92C441D1A0085F3FE /* Auth */,
@@ -290,6 +293,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		E77981272C4905AA00E06F13 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				E77981282C4905B600E06F13 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -397,6 +408,7 @@
 				E779811E2C47F7C900E06F13 /* AlertPresenterProtocol.swift in Sources */,
 				E73F0DEF2C46BFDD0085F3FE /* ProfileImage.swift in Sources */,
 				E73F0DED2C46AC2A0085F3FE /* Profile.swift in Sources */,
+				E77981292C4905B600E06F13 /* TabBarController.swift in Sources */,
 				E73F0DE52C46A1010085F3FE /* UIBlockingProgressHUD.swift in Sources */,
 				E77981152C47F6E200E06F13 /* AlertPresenter.swift in Sources */,
 			);
