@@ -10,6 +10,8 @@ import ProgressHUD
 
 final class SplashViewController : UIViewController {
     
+    private var logo: UIImageView!
+    
     private var alertPresenter: AlertPresenterProtocol?
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     private let oauth2Service = OAuth2Service()
@@ -18,6 +20,7 @@ final class SplashViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         alertPresenter = AlertPresenter(delegate: self)
     }
     
@@ -27,32 +30,47 @@ final class SplashViewController : UIViewController {
         if let token = oAuth2TokenStorage.token {
             fetchProfile(token)
         } else {
-            performSegue(withIdentifier: SplashViewController.authenticationScreenSegueIdentifier, sender: nil)
+            let vc = createAndSetupAuthViewController()
+            self.present(vc, animated: true)
         }
+    }
+    
+    // MARK: - Setup View
+    private func setupView() {
+        setupSuperView()
+        setupLogoImageView()
+    }
+    
+    private func setupSuperView() {
+        view.backgroundColor = UIColor(named: "YP Black") ?? UIColor.black
+    }
+    
+    private func setupLogoImageView() {
+        logo = UIImageView(image: UIImage(named: "Vector")!)
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        logo.tintColor = .none
+        
+        view.addSubview(logo)
+        
+        NSLayoutConstraint.activate([
+            logo.heightAnchor.constraint(equalToConstant: 78),
+            logo.widthAnchor.constraint(equalToConstant: 75),
+            logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logo.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    // MARK: - Setup AuthViewController
+    private func createAndSetupAuthViewController() -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let authViewController = storyBoard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else { return AuthViewController() }
+        authViewController.authViewControllerDelegate = self
+        authViewController.modalPresentationStyle = .fullScreen
+        return authViewController
     }
 }
 
-extension SplashViewController {
-    
-    static let authenticationScreenSegueIdentifier = "authenticationScreenSegueIdentifier"
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SplashViewController.authenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else {
-                assertionFailure("Failed to prepare for \(SplashViewController.authenticationScreenSegueIdentifier)")
-                return
-            }
-            viewController.authViewControllerDelegate = self
-            
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
-    }
-}
-
+// MARK: - AuthViewControllerDelegate
 extension SplashViewController: AuthViewControllerDelegate {
     
     func didAuthenticate(_ vc: AuthViewController, code: String) {
@@ -124,6 +142,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
 }
 
+// MARK: - AlertPresenterDelegate
 extension SplashViewController : AlertPresenterDelegate {
     
     func showResults() {
