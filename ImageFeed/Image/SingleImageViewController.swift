@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController : UIViewController {
     
@@ -13,11 +14,12 @@ final class SingleImageViewController : UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-    var image: UIImage? {
+    
+    var image: UIImage?
+    var imageUrl: URL? {
         didSet {
             guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image!)
+            setImageToImageViewAndResale(url: imageUrl!)
         }
     }
     
@@ -27,12 +29,17 @@ final class SingleImageViewController : UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         
-        imageView.image = image
+        setImageToImageViewAndResale(url: imageUrl!)
         imageView.frame.size = image!.size
-        
-        rescaleAndCenterImageInScrollView(image: image!)
     }
     
+    func setImageToImageViewAndResale(url: URL) {
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: imageUrl)
+        guard let image = imageView.image else { return }
+        self.image = image
+        rescaleAndCenterImageInScrollView(image: image)
+    }
     
     @IBAction func didTapBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)

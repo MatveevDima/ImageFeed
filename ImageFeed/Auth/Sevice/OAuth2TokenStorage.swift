@@ -11,10 +11,10 @@ import SwiftKeychainWrapper
 class OAuth2TokenStorage {
     
     private let keychain = KeychainWrapper.standard
-    private let bearerTokenKey = "bearerToken"
+    let bearerTokenKey = "bearerToken"
     
     init() {
-        keychain.removeObject(forKey: bearerTokenKey)
+        //keychain.removeObject(forKey: bearerTokenKey)
     }
     
     var token: String? {
