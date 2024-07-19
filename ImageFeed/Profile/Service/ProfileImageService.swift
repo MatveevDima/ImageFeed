@@ -64,4 +64,8 @@ final class ProfileImageService {
          request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
          return request
     }
+    
+    func cleanProfileUrl() {
+        self.avatarURL = nil
+    }
 }

@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
     var descriptionLabel: UILabel!
     
     private var profileImageServiceObserver: NSObjectProtocol?
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
     
     private var profileImageUrls: ProfileImage?
@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController {
             }
         updateAvatar()
     }
-    
+
     private func updateAvatar() {
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
@@ -69,6 +69,17 @@ class ProfileViewController: UIViewController {
     
     @objc
     func exitButtonClicked() {
+        let alert = UIAlertController(title: "Выход", message: "Выйти из Вашего профиля?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            ProfileLogoutService.shared.logout()
+            guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
+            window.rootViewController = SplashViewController()
+            window.makeKeyAndVisible()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .default))
+        self.present(alert, animated: true)
     }
     
     

@@ -15,7 +15,7 @@ class AuthViewController : UIViewController {
     private var alertPresenter: AlertPresenterProtocol?
     private let showWebViewSegueIdentifier = "ShowWebView"
 
-    private let oAuth2TokenStorage : OAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage : OAuth2TokenStorage = OAuth2TokenStorage.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()

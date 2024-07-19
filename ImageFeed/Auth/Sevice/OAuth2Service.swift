@@ -9,7 +9,7 @@ import UIKit
 
 class OAuth2Service {
     
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     
     private var task: URLSessionTask?
     private var lastCode: String?

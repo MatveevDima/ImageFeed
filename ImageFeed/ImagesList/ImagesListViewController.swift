@@ -12,7 +12,7 @@ class ImagesListViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
-    private let imagesListService = ImagesListService()
+    private let imagesListService = ImagesListService.shared
     private var imageListServiceObserver: NSObjectProtocol?
     
     private var photos: [Photo] = []
@@ -136,7 +136,7 @@ extension ImagesListViewController : UITableViewDelegate {
                 return
             }
             guard
-                let imageUrl = photos[indexPath.row].thumbImageURL,
+                let imageUrl = photos[indexPath.row].largeImageURL,
                 let url = URL(string: imageUrl)
             else {return}
             viewController.imageUrl = url

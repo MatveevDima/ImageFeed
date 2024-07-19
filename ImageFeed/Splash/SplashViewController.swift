@@ -13,7 +13,7 @@ final class SplashViewController : UIViewController {
     private var logo: UIImageView!
     
     private var alertPresenter: AlertPresenterProtocol?
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     private let oauth2Service = OAuth2Service()
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared

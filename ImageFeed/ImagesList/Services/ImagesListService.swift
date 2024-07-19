@@ -9,13 +9,23 @@ import UIKit
 
 final class ImagesListService {
     
+    static let shared = ImagesListService()
+    
+    private init() {
+        
+    }
+    
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     
     private var task: URLSessionTask?
     private var lastLoadedPage: Int?
     private (set) var photos: [Photo] = []
+    
+    func cleanPhotos() {
+        self.photos = []
+    }
     
     func fetchPhotosNextPage() {
         

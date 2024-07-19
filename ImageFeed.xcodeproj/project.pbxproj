@@ -49,6 +49,7 @@
 		E779813B2C49383F00E06F13 /* ImageFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779813A2C49383F00E06F13 /* ImageFeedTests.swift */; };
 		E77981442C4938F700E06F13 /* ImagesListServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981432C4938F700E06F13 /* ImagesListServiceTest.swift */; };
 		E77981472C4A6ADC00E06F13 /* ImagesListCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981462C4A6ADC00E06F13 /* ImagesListCellDelegate.swift */; };
+		E77981492C4A7B2E00E06F13 /* ProfileLogoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981482C4A7B2E00E06F13 /* ProfileLogoutService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		E779813A2C49383F00E06F13 /* ImageFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedTests.swift; sourceTree = "<group>"; };
 		E77981432C4938F700E06F13 /* ImagesListServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListServiceTest.swift; sourceTree = "<group>"; };
 		E77981462C4A6ADC00E06F13 /* ImagesListCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCellDelegate.swift; sourceTree = "<group>"; };
+		E77981482C4A7B2E00E06F13 /* ProfileLogoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLogoutService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 			children = (
 				E73F0DE72C46AA3E0085F3FE /* ProfileService.swift */,
 				E73F0DF02C47D7C90085F3FE /* ProfileImageService.swift */,
+				E77981482C4A7B2E00E06F13 /* ProfileLogoutService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				E73F0DEB2C46AA9E0085F3FE /* ProfileResult.swift in Sources */,
 				E779811E2C47F7C900E06F13 /* AlertPresenterProtocol.swift in Sources */,
 				E779812F2C4927FF00E06F13 /* Photo.swift in Sources */,
+				E77981492C4A7B2E00E06F13 /* ProfileLogoutService.swift in Sources */,
 				E73F0DEF2C46BFDD0085F3FE /* ProfileImage.swift in Sources */,
 				E73F0DED2C46AC2A0085F3FE /* Profile.swift in Sources */,
 				E77981472C4A6ADC00E06F13 /* ImagesListCellDelegate.swift in Sources */,

@@ -15,11 +15,10 @@ final class SingleImageViewController : UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
-    var image: UIImage?
     var imageUrl: URL? {
         didSet {
             guard isViewLoaded else { return }
-            setImageToImageViewAndResale(url: imageUrl!)
+            showImage()
         }
     }
     
@@ -28,17 +27,42 @@ final class SingleImageViewController : UIViewController {
         
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        
-        setImageToImageViewAndResale(url: imageUrl!)
-        imageView.frame.size = image!.size
+        showImage()
     }
     
-    func setImageToImageViewAndResale(url: URL) {
-        imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: imageUrl)
-        guard let image = imageView.image else { return }
-        self.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+    func showImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageUrl) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                self.rescaleAndCenterImageInScrollView(image: image.image)
+            case .failure:
+                self.showError()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    func showError() {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так",
+            message: "Ошибка при загрузке картинки. Попробовать ещё раз?",
+            preferredStyle: .alert
+        )
+        
+        let dismissAction = UIAlertAction(title: "Нет", style: .default ) { _ in
+            alert.dismiss(animated: true)
+        }
+        
+        let retryAction = UIAlertAction(title: "Попробовать еше раз?", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.showImage()
+        }
+        
+        alert.addAction(dismissAction)
+        alert.addAction(retryAction)
+        self.present(alert, animated: true)
     }
     
     @IBAction func didTapBackButton(_ sender: Any) {
@@ -46,7 +70,7 @@ final class SingleImageViewController : UIViewController {
     }
     
     @IBAction func didTapShareButton(_ sender: Any) {
-        guard let image else { return }
+        guard let image = imageView.image else { return }
         let share = UIActivityViewController(
             activityItems: [image],
             applicationActivities: nil
@@ -79,6 +103,6 @@ extension SingleImageViewController : UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        rescaleAndCenterImageInScrollView(image: image!)
+        rescaleAndCenterImageInScrollView(image: imageView.image!)
     }
 }
