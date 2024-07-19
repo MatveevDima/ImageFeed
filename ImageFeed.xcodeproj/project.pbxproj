@@ -48,6 +48,7 @@
 		E77981332C492A2400E06F13 /* UrlsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981322C492A2400E06F13 /* UrlsResult.swift */; };
 		E779813B2C49383F00E06F13 /* ImageFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779813A2C49383F00E06F13 /* ImageFeedTests.swift */; };
 		E77981442C4938F700E06F13 /* ImagesListServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981432C4938F700E06F13 /* ImagesListServiceTest.swift */; };
+		E77981472C4A6ADC00E06F13 /* ImagesListCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77981462C4A6ADC00E06F13 /* ImagesListCellDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		E77981382C49383F00E06F13 /* ImageFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E779813A2C49383F00E06F13 /* ImageFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedTests.swift; sourceTree = "<group>"; };
 		E77981432C4938F700E06F13 /* ImagesListServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListServiceTest.swift; sourceTree = "<group>"; };
+		E77981462C4A6ADC00E06F13 /* ImagesListCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCellDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +297,7 @@
 		E74633592C40139F0073B16F /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
+				E77981452C4A6AC300E06F13 /* Delegate */,
 				E779812D2C4927F700E06F13 /* Structure */,
 				E779812A2C49278700E06F13 /* Services */,
 				E739F3192C3EEBE7006184CD /* ImagesListViewController.swift */,
@@ -376,6 +379,14 @@
 				E77981432C4938F700E06F13 /* ImagesListServiceTest.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		E77981452C4A6AC300E06F13 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				E77981462C4A6ADC00E06F13 /* ImagesListCellDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,6 +530,7 @@
 				E779812F2C4927FF00E06F13 /* Photo.swift in Sources */,
 				E73F0DEF2C46BFDD0085F3FE /* ProfileImage.swift in Sources */,
 				E73F0DED2C46AC2A0085F3FE /* Profile.swift in Sources */,
+				E77981472C4A6ADC00E06F13 /* ImagesListCellDelegate.swift in Sources */,
 				E77981292C4905B600E06F13 /* TabBarController.swift in Sources */,
 				E73F0DE52C46A1010085F3FE /* UIBlockingProgressHUD.swift in Sources */,
 				E77981152C47F6E200E06F13 /* AlertPresenter.swift in Sources */,

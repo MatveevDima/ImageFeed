@@ -17,8 +17,6 @@ class ImagesListViewController: UIViewController {
     
     private var photos: [Photo] = []
     
-    private var uniqUrls: Set<String> = Set()
-    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -92,7 +90,8 @@ extension ImagesListViewController : UITableViewDataSource {
             let stubImage = UIImage(named: "Stub")
         else { return }
         
-        uniqUrls.insert(imageUrl)
+        cell.delegate = self
+        
         cell.cellImage.kf.indicatorType = .activity
         cell.cellImage.kf.setImage(with: url, placeholder: stubImage) { [weak self] _ in
             guard let self = self else { return }
@@ -100,7 +99,7 @@ extension ImagesListViewController : UITableViewDataSource {
         }
         cell.dateLabel.text = dateFormatter.string(from: Date())
         
-        let isLiked = indexPath.row % 2 == 0
+        let isLiked = photos[indexPath.row].isLiked ?? false
         let likeImage = isLiked ? UIImage(named: "Active Like") : UIImage(named: "No Active Like")
         cell.likeButton.setImage(likeImage, for: .normal)
     }
@@ -143,6 +142,33 @@ extension ImagesListViewController : UITableViewDelegate {
             viewController.imageUrl = url
         } else {
             super.prepare(for: segue, sender: sender)
+        }
+    }
+}
+
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        
+        guard let photoId = photo.id,
+              let isLike = photo.isLiked
+        else { return }
+        
+        imagesListService.changeLike(photoId: photoId, isLike: !isLike) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success:
+                self.photos = self.imagesListService.photos
+                cell.setIsLiked(isLiked: !isLike)
+            case .failure(let error):
+                print("imageListCellDidTapLike Error: \(error)")
+            }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

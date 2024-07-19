@@ -17,6 +17,7 @@ final class ImagesListService {
     private var lastLoadedPage: Int?
     private (set) var photos: [Photo] = []
     
+    private var likeTask: URLSessionTask?
     
     func fetchPhotosNextPage() {
         
@@ -33,7 +34,6 @@ final class ImagesListService {
         let urlSession = URLSession.shared
         
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
-            DispatchQueue.main.async {
                 switch result {
                 case .success(let photoResultBody):
                     let photos = photoResultBody.map { photoResult in
@@ -53,7 +53,6 @@ final class ImagesListService {
                 }
                 
                 self?.task = nil
-            }
         }
         
         self.task = task
@@ -75,6 +74,60 @@ final class ImagesListService {
         )!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+}
+    // MARK: change like
+extension ImagesListService {
+    
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        self.likeTask?.cancel()
+        
+        guard let token = oAuth2TokenStorage.token else { return }
+        let request = makeChangeLikeRequest(token: token, photoId: photoId, isLike: isLike)
+        
+        let urlSession = URLSession.shared
+        
+        let newLikeTask = urlSession.data(for: request) { [weak self] result in
+          
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                if let index = self.photos.firstIndex(where: {$0.id == photoId}) {
+                    let photo = self.photos[index]
+                    let newPhoto = Photo(
+                        id: photo.id,
+                        size: photo.size,
+                        createdAt: photo.createdAt,
+                        welcomeDescription: photo.welcomeDescription,
+                        thumbImageURL: photo.thumbImageURL, 
+                        largeImageURL: photo.largeImageURL,
+                        isLiked: !(photo.isLiked ?? false)
+                    )
+                    self.photos[index] = newPhoto
+                }
+                completion(.success(()))
+                likeTask = nil
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
+            }
+        }
+        
+        self.likeTask = newLikeTask
+        newLikeTask.resume()
+    }
+    
+    private func makeChangeLikeRequest(token: String, photoId: String, isLike: Bool) -> URLRequest {
+        let baseURL = URL(string: Constants.defaultBaseApiURL)!
+        let url = URL(
+            string: "/photos/\(photoId)/like",
+            relativeTo: baseURL
+        )!
+        var request = URLRequest(url: url)
+        request.httpMethod = isLike ? "POST" : "DELETE"
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
