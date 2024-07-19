@@ -17,8 +17,6 @@ final class ImagesListService {
     private var lastLoadedPage: Int?
     private (set) var photos: [Photo] = []
     
-    private var likeTask: URLSessionTask?
-    
     func fetchPhotosNextPage() {
         
         assert(Thread.isMainThread)
@@ -83,7 +81,6 @@ extension ImagesListService {
     
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         assert(Thread.isMainThread)
-        self.likeTask?.cancel()
         
         guard let token = oAuth2TokenStorage.token else { return }
         let request = makeChangeLikeRequest(token: token, photoId: photoId, isLike: isLike)
@@ -109,14 +106,12 @@ extension ImagesListService {
                     self.photos[index] = newPhoto
                 }
                 completion(.success(()))
-                likeTask = nil
             case .failure(let error):
                 print(error.localizedDescription)
                 completion(.failure(error))
             }
         }
         
-        self.likeTask = newLikeTask
         newLikeTask.resume()
     }
     
