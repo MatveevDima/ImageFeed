@@ -103,7 +103,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfile(token)
             case .failure(let error):
                 print(error.localizedDescription)
-                self.showResults()
+                self.showAlertNetworkError()
                 break
             }
         }
@@ -120,7 +120,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 UIBlockingProgressHUD.dismiss()
                 self.switchToTabBarController()
             case .failure:
-                self.showResults()
+                self.showAlertNetworkError()
                 break
             }
         }
@@ -136,7 +136,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                     print(url)
                 case .failure(let error):
                     print(error.localizedDescription)
-                    self.showResults()
+                    self.showAlertNetworkError()
                 }
             }
     }
@@ -145,7 +145,7 @@ extension SplashViewController: AuthViewControllerDelegate {
 // MARK: - AlertPresenterDelegate
 extension SplashViewController : AlertPresenterDelegate {
     
-    func showResults() {
+    func showAlertNetworkError() {
         
         alertPresenter?.sendAlertNetworkError(on: self)
     }

@@ -45,7 +45,7 @@ extension AuthViewController : WebViewViewControllerDelegate {
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
-        showResults()
+        showAlertNetworkError()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,7 +65,7 @@ extension AuthViewController : WebViewViewControllerDelegate {
 
 extension AuthViewController : AlertPresenterDelegate {
     
-    func showResults() {
+    func showAlertNetworkError() {
         
         alertPresenter?.sendAlertNetworkError(on: self)
     }

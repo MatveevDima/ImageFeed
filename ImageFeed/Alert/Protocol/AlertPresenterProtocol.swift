@@ -12,4 +12,6 @@ protocol AlertPresenterProtocol {
     func sendAlert(alertModel: AlertModel?, on viewController: UIViewController)
     
     func sendAlertNetworkError(on viewController: UIViewController)
+    
+    func sendAlertDidClickedExitButton(on viewController: UIViewController)
 }

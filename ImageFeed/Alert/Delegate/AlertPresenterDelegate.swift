@@ -7,5 +7,5 @@
 
 protocol AlertPresenterDelegate: AnyObject {
     
-    func showResults()
+    func showAlertNetworkError()
 }

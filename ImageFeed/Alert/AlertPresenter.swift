@@ -46,4 +46,21 @@ class AlertPresenter : AlertPresenterProtocol {
             
         }, on: viewController)
     }
+    
+    func sendAlertDidClickedExitButton(on viewController: UIViewController) {
+        
+        let alert = UIAlertController(title: "Выход", message: "Выйти из Вашего профиля?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            ProfileLogoutService.shared.logout()
+            guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
+            window.rootViewController = SplashViewController()
+            window.makeKeyAndVisible()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .default))
+        
+        viewController.present(alert, animated: true)
+    }
 }

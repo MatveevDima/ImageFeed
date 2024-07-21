@@ -16,70 +16,20 @@ class ProfileViewController: UIViewController {
     var accountLabel: UILabel!
     var descriptionLabel: UILabel!
     
-    private var profileImageServiceObserver: NSObjectProtocol?
-    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
-    private let profileService = ProfileService.shared
-    
-    private var profileImageUrls: ProfileImage?
+    var presenter : ProfileViewPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
-        guard let profile = profileService.profile else { return }
-        
-        nameLabel.text = profile.name
-        accountLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-        
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
-        updateAvatar()
+        presenter?.viewDidLoad()
+        presenter?.updateProfileInfo()
+        presenter?.updateProfileImage()
     }
-
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-        
-        DispatchQueue.main.async {
-            let processor = RoundCornerImageProcessor(cornerRadius: 50)
-            self.profileImage.kf.indicatorType = .activity
-            self.profileImage.kf.setImage(with: url,
-                                     options: [
-                                        .processor(processor)
-                                    ]
-            )
-            let cache = ImageCache.default
-            cache.clearMemoryCache()
-            cache.clearDiskCache()
-        }
-    }
-    
     
     // MARK: - Actions
-    
     @objc
     func exitButtonClicked() {
-        let alert = UIAlertController(title: "Выход", message: "Выйти из Вашего профиля?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
-            ProfileLogoutService.shared.logout()
-            guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
-            window.rootViewController = SplashViewController()
-            window.makeKeyAndVisible()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Нет", style: .default))
-        self.present(alert, animated: true)
+        presenter?.exitButtonClicked()
     }
     
     
@@ -168,5 +118,27 @@ class ProfileViewController: UIViewController {
         exitButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         exitButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
         exitButton.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor).isActive = true
+    }
+}
+
+    // MARK: - ProfileViewControllerProtocol
+extension ProfileViewController : ProfileViewControllerProtocol {
+    
+    
+    func setNameLabelText(_ newValue: String) {
+        nameLabel.text = newValue
+    }
+    
+    func setAccountLabelText(_ newValue: String) {
+        accountLabel.text = newValue
+    }
+    
+    func setDescriptionLabelText(_ newValue: String) {
+        descriptionLabel.text = newValue
+    }
+    
+    func setAvatar(avatar url: URL) {
+        profileImage.kf.indicatorType = .activity
+        profileImage.kf.setImage(with: url, options: [.processor(RoundCornerImageProcessor(cornerRadius: 50))])
     }
 }
