@@ -14,7 +14,7 @@ class AuthViewController : UIViewController {
     weak var authViewControllerDelegate: AuthViewControllerDelegate?
     private var alertPresenter: AlertPresenterProtocol?
     private let showWebViewSegueIdentifier = "ShowWebView"
-
+    
     private let oAuth2TokenStorage : OAuth2TokenStorage = OAuth2TokenStorage.shared
     
     override func viewDidLoad() {
@@ -53,6 +53,9 @@ extension AuthViewController : WebViewViewControllerDelegate {
             guard
                 let webViewViewController = segue.destination as? WebViewViewController
             else { fatalError("Failed to prepare for \(showWebViewSegueIdentifier)") }
+            let webViewPresenter = WebViewPresenter(authHelper: AuthHelper(configuration: AuthConfiguration.standard))
+            webViewViewController.presenter = webViewPresenter
+            webViewPresenter.view = webViewViewController
             webViewViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)

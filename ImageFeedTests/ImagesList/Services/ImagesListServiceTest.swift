@@ -14,8 +14,8 @@ let AUTHTOKEN = "jv1JvENLvZ4CzN7IiBrZ2VLzefdGMr5OkJAJO1SkGP8"
 
 final class ImagesListServiceTests: XCTestCase {
     func testFetchPhotos() {
-        let service = ImagesListService()
-        KeychainWrapper.standard.set(AUTHTOKEN, forKey: OAuth2TokenStorage().bearerTokenKey)
+        let service = ImagesListService.shared
+        KeychainWrapper.standard.set(AUTHTOKEN, forKey: OAuth2TokenStorage.shared.bearerTokenKey)
         
         let expectation = self.expectation(description: "Wait for Notification")
         NotificationCenter.default.addObserver(
