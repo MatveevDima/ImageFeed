@@ -5,7 +5,7 @@
 //  Created by Дмитрий Матвеев on 21.07.2024.
 //
 
-import Foundation
+import UIKit
 
 protocol ProfileViewPresenterProtocol {
     
@@ -17,5 +17,5 @@ protocol ProfileViewPresenterProtocol {
     
     func updateProfileImage()
     
-    func exitButtonClicked() 
+    func exitButtonClicked()
 }

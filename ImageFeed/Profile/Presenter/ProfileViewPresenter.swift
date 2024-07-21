@@ -11,7 +11,7 @@ import Kingfisher
 final class ProfileViewPresenter {
     
     weak var view: ProfileViewControllerProtocol?
-    private var alertPresenter: AlertPresenterProtocol?
+    var alertPresenter: AlertPresenterProtocol?
     
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
@@ -56,7 +56,7 @@ extension ProfileViewPresenter : ProfileViewPresenterProtocol {
     }
     
     func exitButtonClicked() {
-        guard let view = view as? ProfileViewController
+        guard let view = view as? UIViewController
         else { return }
         alertPresenter?.sendAlertDidClickedExitButton(on: view)
     }
@@ -65,7 +65,7 @@ extension ProfileViewPresenter : ProfileViewPresenterProtocol {
 extension ProfileViewPresenter : AlertPresenterDelegate {
     
     func showAlertNetworkError() {
-        guard let view = view as? ProfileViewController
+        guard let view = view as? UIViewController
         else { return }
         alertPresenter?.sendAlertNetworkError(on: view)
     }
