@@ -60,6 +60,9 @@
 		E7FE42522C4D80E300FE725A /* ProfileViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE42512C4D80E300FE725A /* ProfileViewControllerProtocol.swift */; };
 		E7FE42552C4D814900FE725A /* ProfileViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE42542C4D814900FE725A /* ProfileViewPresenter.swift */; };
 		E7FE42572C4D817C00FE725A /* ProfileViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE42562C4D817C00FE725A /* ProfileViewPresenterProtocol.swift */; };
+		E7FE425A2C4D9BA000FE725A /* ImagesListViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE42592C4D9BA000FE725A /* ImagesListViewControllerProtocol.swift */; };
+		E7FE425D2C4D9C3C00FE725A /* ImagesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE425C2C4D9C3C00FE725A /* ImagesListPresenter.swift */; };
+		E7FE425F2C4E5F5600FE725A /* ImagesListPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE425E2C4E5F5600FE725A /* ImagesListPresenterProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +128,9 @@
 		E7FE42512C4D80E300FE725A /* ProfileViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E7FE42542C4D814900FE725A /* ProfileViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenter.swift; sourceTree = "<group>"; };
 		E7FE42562C4D817C00FE725A /* ProfileViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		E7FE42592C4D9BA000FE725A /* ImagesListViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewControllerProtocol.swift; sourceTree = "<group>"; };
+		E7FE425C2C4D9C3C00FE725A /* ImagesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenter.swift; sourceTree = "<group>"; };
+		E7FE425E2C4E5F5600FE725A /* ImagesListPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenterProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +332,8 @@
 		E74633592C40139F0073B16F /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
+				E7FE425B2C4D9C1C00FE725A /* Presenter */,
+				E7FE42582C4D9B6C00FE725A /* Protocol */,
 				E77981452C4A6AC300E06F13 /* Delegate */,
 				E779812D2C4927F700E06F13 /* Structure */,
 				E779812A2C49278700E06F13 /* Services */,
@@ -470,6 +478,23 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		E7FE42582C4D9B6C00FE725A /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E7FE42592C4D9BA000FE725A /* ImagesListViewControllerProtocol.swift */,
+				E7FE425E2C4E5F5600FE725A /* ImagesListPresenterProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		E7FE425B2C4D9C1C00FE725A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E7FE425C2C4D9C3C00FE725A /* ImagesListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -582,6 +607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7FE425A2C4D9BA000FE725A /* ImagesListViewControllerProtocol.swift in Sources */,
 				E73F0DCD2C442ED30085F3FE /* WebViewViewController.swift in Sources */,
 				E73F0DD52C4512DC0085F3FE /* URLSession+data.swift in Sources */,
 				E73F0DC32C412AB60085F3FE /* ProfileViewController.swift in Sources */,
@@ -619,11 +645,13 @@
 				E77981492C4A7B2E00E06F13 /* ProfileLogoutService.swift in Sources */,
 				E7FE42432C4D3CE500FE725A /* WebViewPresenter.swift in Sources */,
 				E73F0DEF2C46BFDD0085F3FE /* ProfileImage.swift in Sources */,
+				E7FE425F2C4E5F5600FE725A /* ImagesListPresenterProtocol.swift in Sources */,
 				E73F0DED2C46AC2A0085F3FE /* Profile.swift in Sources */,
 				E77981472C4A6ADC00E06F13 /* ImagesListCellDelegate.swift in Sources */,
 				E7FE42572C4D817C00FE725A /* ProfileViewPresenterProtocol.swift in Sources */,
 				E77981292C4905B600E06F13 /* TabBarController.swift in Sources */,
 				E73F0DE52C46A1010085F3FE /* UIBlockingProgressHUD.swift in Sources */,
+				E7FE425D2C4D9C3C00FE725A /* ImagesListPresenter.swift in Sources */,
 				E77981152C47F6E200E06F13 /* AlertPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
